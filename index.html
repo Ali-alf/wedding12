@@ -157,7 +157,7 @@
         .event-card i { color: var(--color-turquoise); margin-right: 10px; }
         .event-card p { line-height: 1.9; font-size: 1rem; }
 
-        /* === ФОН С ФОТО ДЛЯ СЕКЦИИ "ДАТА И МЕСТО" === */
+        /* === ФОН ДЛЯ "ДАТА И МЕСТО" === */
         #events {
             background-image: linear-gradient(rgba(224, 242, 254, 0.75), rgba(212, 232, 245, 0.75)), url('https://i.postimg.cc/pTStcgSv/00033321-b2cc-4e07-b0f2-399a76a3f022.jpg');
             background-size: cover;
@@ -230,31 +230,6 @@
             display: none;
         }
 
-        /* === КНОПКА МУЗЫКИ === */
-        #music-toggle {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
-            background-color: var(--color-turquoise);
-            color: white;
-            border-radius: 50%;
-            border: none;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            z-index: 99;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            animation: spin 8s linear infinite;
-        }
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        #music-toggle.paused { animation-play-state: paused; }
-
         /* === ПОДВАЛ === */
         footer {
             background-image: linear-gradient(rgba(64, 224, 208, 0.7), rgba(53, 196, 182, 0.7)), url('https://i.postimg.cc/P56vRXms/serd.jpg');
@@ -271,6 +246,7 @@
             margin-bottom: 1rem;
         }
 
+        /* === АДАПТИВНОСТЬ === */
         @media (max-width: 768px) {
             .cover h1 { font-size: 2.5rem; }
             .section-title { font-size: 2rem; }
@@ -286,14 +262,6 @@
 </head>
 <body>
 
-    <audio id="background-music" loop>
-        <source src="https://fd.oneme.ru/getfile?rq=AHPO5oQh5a-oxokGerrwR-s3VLGgGayvzljevtybwZ0kDY4rTeVZQ99E-V74pcfItD3LVdk3Hf5hsX8pon6_JcR-yNHubHHeW4IAgEt2wsMKzX6NF4UrL8EQf4fIQ2Yr8u3R7D8BeCj2hsqsheryT-WuzwM&expires=1791266943606" type="audio/mpeg">
-    </audio>
-    
-    <button id="music-toggle" class="paused">
-        <i class="fas fa-music"></i>
-    </button>
-    
     <div class="cover" id="cover">
         <p>Свадьба</p>
         <h1>Руслана и Алины</h1>
@@ -378,32 +346,11 @@
             const openButton = document.getElementById('open-invitation');
             const cover = document.getElementById('cover');
             const mainContent = document.getElementById('main-content');
-            const audio = document.getElementById('background-music');
-            const musicToggle = document.getElementById('music-toggle');
             
             openButton.addEventListener('click', function() {
                 cover.classList.add('hidden');
                 mainContent.style.display = 'block';
-                
-                audio.play().catch(error => {
-                    console.log("Браузер заблокировал автовоспроизведение.");
-                });
-                
-                if (!audio.paused) {
-                    musicToggle.classList.remove('paused');
-                }
-                
                 revealSections();
-            });
-            
-            musicToggle.addEventListener('click', function() {
-                if (audio.paused) {
-                    audio.play();
-                    musicToggle.classList.remove('paused');
-                } else {
-                    audio.pause();
-                    musicToggle.classList.add('paused');
-                }
             });
 
             const weddingDate = new Date("2026-12-12T16:30:00").getTime();
